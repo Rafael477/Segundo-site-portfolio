@@ -9,16 +9,24 @@
 </head>
 
 <body>
-    <header id="inicio">
-        <ul class="menu">
-            <li><a href="#inicio" class="efeito-cursor">Início</a></li>
-            <li><a href="#projetos" class="efeito-cursor">Projetos</a></li>
-            <li><a href="#sobre" class="efeito-cursor">Sobre</a></li>
-            <li><a href="#contato" class="efeito-cursor">Contato</a></li>
-        </ul>
+    <div id="menu-area"></div>
+    <header id="menu-header">
+        <div class="nav-container">
+            <div class="logo"><img src="img/MinhaLogoRAFADEV1-Photoroom-Photoroom.png" alt="Logo Rafael.dev"></div>
+
+            <div class="hamburguer" id="hamburguer">☰</div>
+
+            <ul class="menu" id="menu">
+                <li><a href="#inicio" class="efeito-cursor">Início</a></li>
+                <li><a href="#projetos" class="efeito-cursor">Projetos</a></li>
+                <li><a href="#sobre" class="efeito-cursor">Sobre</a></li>
+                <li><a href="#contato" class="efeito-cursor">Contato</a></li>
+            </ul>
+        </div>
     </header>
 
-    <section class="principal">
+    <section id="inicio" class="principal">
+
         <div>
             <h1>Olá, eu sou <span>Rafael Aniceto</span>.</h1>
             <p>Desenvolvedor criativo focado em construir experiências digitais excepcionais e interfaces intuitivas.
@@ -35,8 +43,8 @@
                 <img class="img-projeto" src="img/Clone-Youtube.png" alt="imagem-projeto">
                 <div class="info-projeto">
                     <h3>Clone do YouTube</h3>
-                    <p>Um clone do YouTube construído com HTML, CSS e JavaScript.</p>
-                    <a href="#projetos">Ver projeto →</a>
+                    <p>Um clone do YouTube também construído com HTML, CSS e JavaScript.</p>
+                    <a href="https://rafael477.github.io/Youtube-clone/">Ver projeto →</a>
                 </div>
             </div>
             <div class="card-projeto efeito-cursor">
@@ -48,11 +56,11 @@
                 </div>
             </div>
             <div class="card-projeto efeito-cursor">
-                <img class="img-projeto" src="img/Site-Portfólio (1).png" alt="imagem-projeto">
+                <img class="img-projeto" src="img/Salão-Rute.png" alt="imagem-projeto">
                 <div class="info-projeto">
-                    <h3>Site Portfólio</h3>
-                    <p>Um site portfólio construído com HTML, CSS e JavaScript.</p>
-                    <a href="#projetos">Ver projeto →</a>
+                    <h3>Site de Salão de Beleza</h3>
+                    <p>Um site para salão de beleza construído com as ferramentas HTML, CSS e JavaScript.</p>
+                    <a href="https://rafael477.github.io/Site-salao/">Ver projeto →</a>
                 </div>
             </div>
         </div>
@@ -84,7 +92,7 @@
     </section>
 
     <section id="contato" class="secao">
-        <h4 class="titulo-secao">Contato</h4>
+        <h4 class="titulo-contato">Contato</h4>
 
         <div class="botoes-contato">
             <a href="https://w.app/jvh1rh" class="botao-contato whatsapp efeito-cursor">
@@ -152,6 +160,43 @@
         cursor.style.left = info.clientX + 'px';
         cursor.style.top = info.clientY + 'px';
     });
+    // Hamburguer e menu toggle
+    const hamburguer = document.getElementById('hamburguer');
+    const menu = document.getElementById('menu');
+    const links = document.querySelectorAll('.menu a');
+
+    hamburguer.addEventListener('click', () => {
+        menu.classList.toggle('ativo');
+    });
+
+    links.forEach(link => {
+        link.addEventListener('click', () => {
+            menu.classList.remove('ativo');
+        });
+    });
+
+    // Destaque no menu
+    const secoes = document.querySelectorAll('section, header');
+    function ativarLinkAtual() {
+        const scrollY = window.scrollY;
+
+        secoes.forEach(secao => {
+            const top = secao.offsetTop - 100;
+            const height = secao.offsetHeight;
+            const id = secao.getAttribute('id');
+
+            if (scrollY >= top && scrollY < top + height) {
+                links.forEach(link => {
+                    link.classList.remove('ativo');
+                    if (link.getAttribute('href') === `#${id}`) {
+                        link.classList.add('ativo');
+                    }
+                });
+            }
+        });
+    }
+
+    window.addEventListener('scroll', ativarLinkAtual);
 </script>
 
 </html>
